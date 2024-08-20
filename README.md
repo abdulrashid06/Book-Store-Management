@@ -35,14 +35,6 @@ The **Online Bookstore Management System** is a web-based application designed t
   - MySQL
   - JWT (JSON Web Token)
 
-- **Frontend:**
-  - HTML
-  - CSS
-  - JavaScript
-
-- **Testing:**
-  - JUnit
-  - Mockito
 
 - **API Documentation:**
   - Swagger
@@ -82,25 +74,6 @@ The **Online Bookstore Management System** is a web-based application designed t
     mvn spring-boot:run
     ```
 
-### Frontend Setup
-
-1. **Navigate to Frontend Directory:**
-
-    ```bash
-    cd frontend
-    ```
-
-2. **Install Dependencies:**
-
-    ```bash
-    npm install
-    ```
-
-3. **Run the Frontend:**
-
-    ```bash
-    npm start
-    ```
 
 ### API Endpoints
 
@@ -118,6 +91,9 @@ The **Online Bookstore Management System** is a web-based application designed t
 - **Order Management:**
   - `POST /api/orders`: Place a new order.
   - `GET /api/orders/{id}`: Retrieve order details by ID.
+  - `GET /api/orders/placed`: Retrieve all placed orders.
+  - `GET /api/orders/shipped`: Retrieve all shipped orders
+  - `GET /api/orders/delivered`: Retrieve all delivered orders
   - `GET /api/orders`: Retrieve all orders (Admin) or user-specific orders.
   - `PUT /api/orders/{id}/status`: Update order status (Admin only).
   - `DELETE /api/orders/{id}`: Delete an order (Admin only).
