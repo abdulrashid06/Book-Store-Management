@@ -1,126 +1,160 @@
-### Online Bookstore Management System
-## Overview
-The Online Bookstore Management System is a comprehensive web application designed to manage books, orders, and user accounts. It provides an easy-to-use interface for customers and administrators to interact with the bookstore. The system is built using Spring Boot, MySQL, and includes security features powered by Spring Security. It also utilizes Swagger for API documentation and JUnit/Mockito for testing.
+# Online Bookstore Management System
+
+## Project Overview
+
+The **Online Bookstore Management System** is a web-based application designed to manage the complete lifecycle of a bookstore. It provides functionalities for users to browse books, place orders, and manage their shopping cart, while allowing administrators to manage books, orders, and users. The system integrates JWT-based authentication for secure user management and role-based access control for different functionalities.
 
 ## Features
-**User Management**
-User Registration and Authentication: Users can sign up and log in to the system. Authentication is secured using JWT.
-Role-Based Access Control: The system supports two roles: User and Admin. Admins have additional privileges to manage books and orders.
-Profile Management: Users can view and update their profile information.
-</br>
 
-**Book Management**
-Add/Update/Delete Books: Admins can manage the inventory of books in the store.
-View Books: Users can browse through the catalog of available books.
-</br>
+- **User Features:**
+  - User registration and authentication
+  - Browse and search for books
+  - View book details
+  - Add books to the shopping cart
+  - Place orders
+  - View order history and details
 
-**Order Management**
-Place Orders: Users can place orders for books.
-Update Order Status: Admins can update the status of an order (e.g., shipped, delivered).
-Cancel Orders: Users can cancel orders if they have not yet been delivered.
-</br>
+- **Admin Features:**
+  - Manage book inventory (add, update, delete books)
+  - Manage user accounts (view, update, delete users)
+  - View and manage all orders
+  - Update order status (shipped, delivered, canceled)
 
-**Security**
-JWT Authentication: Secure the APIs with JWT tokens.
-Role-Based Authorization: Protect resources based on user roles (User, Admin).
+- **Common Features:**
+  - JWT-based authentication and authorization
+  - Role-based access control
+  - Responsive web design with HTML, CSS, and JavaScript
+  - API documentation with Swagger
 
-</br>
-**Testing**
-Unit Tests: Comprehensive unit tests using JUnit and Mockito.
-API Documentation: Interactive API documentation using Swagger.
-</br>
+## Technology Stack
 
-**Technology Stack**
-Backend: Spring Boot, Java
-Database: MySQL
-Security: Spring Security with JWT
-API Documentation: Swagger
-Testing: JUnit, Mockito
+- **Backend:**
+  - Spring Boot
+  - Spring Security
+  - JPA (Hibernate)
+  - MySQL
+  - JWT (JSON Web Token)
 
+- **Frontend:**
+  - HTML
+  - CSS
+  - JavaScript
 
-## Getting Started
+- **Testing:**
+  - JUnit
+  - Mockito
 
-**Prerequisites**
-Java 11 or higher
-Maven 3.6.3 or higher
-MySQL 8.0 or higher
+- **API Documentation:**
+  - Swagger
 
-</br>
+## Setup and Installation
 
-## Installation
-**Clone the repository:**
+### Prerequisites
 
-```
-git clone https://github.com/yourusername/online-bookstore-management-system.git
-cd online-bookstore-management-system
-```
+- Java 11 or later
+- Maven
+- MySQL
+- Node.js (for frontend development)
 
+### Backend Setup
 
-**Set up the database:**
-Create a MySQL database named bookstore_db.
-Update the application.properties file with your MySQL username and password.
+1. **Clone the Repository:**
 
+    ```bash
+    git clone https://github.com/your-repo/online-bookstore-management-system.git
+    cd online-bookstore-management-system
+    ```
 
-**Access the application:**
-The application will be available at http://localhost:8080.
-Swagger UI will be available at http://localhost:8080/swagger-ui.html.
-</br>
+2. **Configure MySQL Database:**
+   - Create a new database named `bookstore`.
+   - Update `src/main/resources/application.properties` with your MySQL credentials.
 
-## API Endpoints
-```
-User Management
-Register a new user
+    ```properties
+    spring.datasource.url=jdbc:mysql://localhost:3306/bookstore
+    spring.datasource.username=root
+    spring.datasource.password=password
+    ```
 
-POST /api/users/register
-User Login
+3. **Build and Run the Backend:**
 
-POST /api/auth/login
-Book Management
-Add a new book
+    ```bash
+    mvn clean install
+    mvn spring-boot:run
+    ```
 
-POST /api/books
-Update a book
+### Frontend Setup
 
-PUT /api/books/{bookId}
-Get all books
+1. **Navigate to Frontend Directory:**
 
-GET /api/books
-Delete a book
+    ```bash
+    cd frontend
+    ```
 
-DELETE /api/books/{bookId}
-Order Management
-Place a new order
+2. **Install Dependencies:**
 
-POST /api/orders
-Update order status
+    ```bash
+    npm install
+    ```
 
-PUT /api/orders/{orderId}/status
-Cancel an order
+3. **Run the Frontend:**
 
-DELETE /api/orders/{orderId}
-Get all orders
+    ```bash
+    npm start
+    ```
 
-GET /api/orders
-Get order by ID
+### API Endpoints
 
-GET /api/orders/{orderId}
- ```
-</br>
+- **User Authentication:**
+  - `POST /api/auth/login`: Authenticate user and obtain JWT token.
+  - `POST /api/auth/register`: Register a new user.
 
-**API Documentation**
-Swagger is used for API documentation. You can interact with the API using the Swagger UI, available at http://localhost:8080/swagger-ui.html.
-</br>
+- **Book Management:**
+  - `GET /api/books`: Retrieve a list of books.
+  - `GET /api/books/{id}`: Retrieve book details by ID.
+  - `POST /api/books`: Add a new book (Admin only).
+  - `PUT /api/books/{id}`: Update book details (Admin only).
+  - `DELETE /api/books/{id}`: Delete a book (Admin only).
 
-**Contributing**
-Contributions are welcome! Please fork this repository, create a new branch, and submit a pull request.
+- **Order Management:**
+  - `POST /api/orders`: Place a new order.
+  - `GET /api/orders/{id}`: Retrieve order details by ID.
+  - `GET /api/orders`: Retrieve all orders (Admin) or user-specific orders.
+  - `PUT /api/orders/{id}/status`: Update order status (Admin only).
+  - `DELETE /api/orders/{id}`: Delete an order (Admin only).
 
-</br>
-**License**
-This project is licensed under the MIT License - see the LICENSE file for details.
-</br>
+## Testing
 
-**Contact**
-For any inquiries or support, please contact:
+- **Backend Tests:**
+  - Run unit tests using JUnit and Mockito:
 
-Name: Abdul Rashid
-Email: abdulrashid987655@gmail.com
+    ```bash
+    mvn test
+    ```
+
+## Project Structure
+
+- `src/main/java/com/bookstore/` - Contains the main application code.
+- `src/main/resources/` - Configuration files and application properties.
+- `src/main/resources/static/` - Static resources like HTML, CSS, and JS files.
+- `src/test/java/com/bookstore/` - Unit and integration tests.
+
+## Contribution
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- Spring Boot for rapid development.
+- MySQL for database management.
+- Swagger for API documentation.
+- JUnit and Mockito for testing.
+
+For any questions or issues, please open an issue on the GitHub repository or contact the project maintainers.
