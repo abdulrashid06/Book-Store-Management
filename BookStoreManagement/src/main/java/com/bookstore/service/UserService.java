@@ -8,14 +8,14 @@ public interface UserService {
 	
 User registerUser(User user);
     
-    public User updateUser(Long userId, User updatedUser);
+    public User updateUser(String token, User updatedUser);
     
-    public User getUserById(Long userId);
+    public User getUserById(String token);
     
     public User getUserByUsername(String username);
     
     public List<User> getAllUsers();
     
-    public void deleteUser(Long userId);
+    public void deleteUser(String token);
 
 }

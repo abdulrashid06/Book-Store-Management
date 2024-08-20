@@ -63,7 +63,10 @@ public class Config implements WebMvcConfigurer {
                     //Users Api's
                     .requestMatchers(HttpMethod.PUT, "/api/users/update/{id}").hasRole("USER")
                     .requestMatchers(HttpMethod.POST, "/api/orders/create").hasRole("USER")
-                    .requestMatchers(HttpMethod.GET, "/api/orders/get_order_list").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/orders/get_order_list").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/orders/placed").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/orders/shipped").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/orders/delivered").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/api/orders/cancell/{orderId}").hasRole("USER")
                     // Admin's Api
                     .requestMatchers(HttpMethod.DELETE, "/api/orders/**").hasRole("ADMIN")

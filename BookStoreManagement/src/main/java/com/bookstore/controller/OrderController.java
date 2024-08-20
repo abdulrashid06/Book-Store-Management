@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +40,8 @@ public class OrderController {
      * @return ResponseEntity containing the created Order and HTTP status 201.
      */
     @PostMapping("create")
-    public ResponseEntity<Order> placeOrder(@RequestParam Long userId, @RequestParam Long bookId, @RequestParam int quantity) {
-        Order order = orderService.placeOrder(userId, bookId, quantity);
+    public ResponseEntity<Order> placeOrder(@RequestHeader("Authorization") String token, @RequestParam Long bookId, @RequestParam int quantity) {
+        Order order = orderService.placeOrder(token, bookId, quantity);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
     
@@ -73,8 +73,8 @@ public class OrderController {
      * @return ResponseEntity containing a list of Orders and HTTP status 200.
      */
     @GetMapping("/get_order_list")
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
+    public ResponseEntity<List<Order>> getAllOrders(@RequestHeader("Authorization") String token) {
+        List<Order> orders = orderService.getAllOrders(token);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
@@ -140,5 +140,53 @@ public class OrderController {
         }
     }
     
+    
+    
+    
+    /**
+     * Retrieves all orders with the status 'PLACED'. This endpoint is accessible to 
+     * users with the ADMIN role. It returns a list of orders where the status is 
+     * set to 'PLACED' and includes a successful HTTP response with status 200 (OK).
+     * 
+     * @return ResponseEntity containing a list of orders with status 'PLACED' and HTTP status 200.
+     */
+    @GetMapping("/placed")
+    public ResponseEntity<List<Order>> getPlacedOrders() {
+        List<Order> orders = orderService.getAllPlacedOrders();
+        return ResponseEntity.ok(orders);
+    }
+    
+    
+    
+    
+    /**
+     * Retrieves all orders with the status 'SHIPPED'. This endpoint is accessible to 
+     * users with the ADMIN role. It returns a list of orders where the status is 
+     * set to 'SHIPPED' and includes a successful HTTP response with status 200 (OK).
+     * 
+     * @return ResponseEntity containing a list of orders with status 'PLACED' and HTTP status 200.
+     */
+    @GetMapping("/shipped")
+    public ResponseEntity<List<Order>> getAllShippedOrders() {
+    	List<Order> orders = orderService.getAllShippedOrders();
+    	return ResponseEntity.ok(orders);
+    }
+
+    
+    
+    
+    /**
+     * Retrieves all orders with the status 'DELIVERED'. This endpoint is accessible to 
+     * users with the ADMIN role. It returns a list of orders where the status is 
+     * set to 'DELIVERED' and includes a successful HTTP response with status 200 (OK).
+     * 
+     * @return ResponseEntity containing a list of orders with status 'DELIVERED' and HTTP status 200.
+     */
+    @GetMapping("/delivered")
+    public ResponseEntity<List<Order>> getDeliveredOrders() {
+        List<Order> orders = orderService.getAllDeliveredOrders();
+        return ResponseEntity.ok(orders);
+    }
+
     
 }

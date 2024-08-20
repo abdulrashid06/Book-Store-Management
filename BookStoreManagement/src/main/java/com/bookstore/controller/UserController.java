@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.model.User;
@@ -53,8 +55,8 @@ public class UserController {
      * @return ResponseEntity containing the requested User and HTTP status 200.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@RequestParam String token) {
+        User user = userService.getUserById(token);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -88,8 +90,8 @@ public class UserController {
      * @return ResponseEntity containing the updated User and HTTP status 202.
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User updatedUser = userService.updateUser(id, userDetails);
+    public ResponseEntity<User> updateUser(@RequestHeader("Authorization") String token, @RequestBody User userDetails) {
+        User updatedUser = userService.updateUser(token, userDetails);
         return new ResponseEntity<>(updatedUser, HttpStatus.ACCEPTED);
     }
 
@@ -105,8 +107,8 @@ public class UserController {
      * @return ResponseEntity with HTTP status 204 indicating that the user was successfully deleted.
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<Void> deleteUser(@RequestHeader("Authorization") String token) {
+        userService.deleteUser(token);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
